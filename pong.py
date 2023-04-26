@@ -1,7 +1,7 @@
 import pygame as pg
 from pygame.locals import (K_UP, K_DOWN)
-import math as m
 import random as rd
+
 
 
 VINDU_BREDDE = 720
@@ -59,7 +59,7 @@ class Hinder(Ball):
         if ((self.x - self.radius <= 21) and (rectangle1.ypos1 <= self.y <= rectangle1.ypos1 + 120)) or \
             ((self.x + self.radius >= 699) and (rectangle2.ypos2 <= self.y <= rectangle2.ypos2 + 120)):
              self.xFart = -self.xFart
-                
+
         # Flytter hinderet
         self.x += self.xFart
         self.y += self.yFart
@@ -103,6 +103,28 @@ hinder = Hinder(360, 240, 10, (255, 255, 255), vindu, l1[tilfeldig_tall]/1000, l
 fortsett = True
 kjører = True
 
+if rektangel1.score == 0:
+    bilde1 = "0.png"
+if rektangel1.score == 1:
+    bilde1 = "1.png"
+if rektangel1.score == 2:
+    bilde1 = "2.png"
+if rektangel1.score == 3:
+    bilde1 = "3.png"
+if rektangel1.score == 4:
+    bilde1 = "4.png"
+if rektangel1.score == 5:
+    bilde1 = "5.png"
+if rektangel1.score == 6:
+    bilde1 = "6.png"
+if rektangel1.score == 7:
+    bilde1 = "7.png"
+if rektangel1.score == 8:
+    bilde1 = "8.png"
+if rektangel1.score == 9:
+    bilde1 = "9.png"
+
+image_0 = pg.image.load(bilde1)
 while fortsett:
 
     # Sjekker om brukeren har lukket vinduet
@@ -113,14 +135,41 @@ while fortsett:
     trykkede_taster = pg.key.get_pressed()
 
     # Farger bakgrunnen lyseblå
-    vindu.fill((0, 0, 0))
+    vindu.fill((110, 110, 110))
     rektangel1.tegn()
     rektangel2.tegn()
     hinder.tegn()
     hinder.flytt(rektangel1,rektangel2)
     rektangel1.flytt(trykkede_taster)
     rektangel2.flytt(trykkede_taster)
+    
 
+
+    if rektangel1.score == 0:
+        bilde1 = "0.png"
+    if rektangel1.score == 1:
+        bilde1 = "1.png"
+    if rektangel1.score == 2:
+        bilde1 = "2.png"
+    if rektangel1.score == 3:
+        bilde1 = "3.png"
+    if rektangel1.score == 4:
+        bilde1 = "4.png"
+    if rektangel1.score == 5:
+        bilde1 = "5.png"
+    if rektangel1.score == 6:
+        bilde1 = "6.png"
+    if rektangel1.score == 7:
+        bilde1 = "7.png"
+    if rektangel1.score == 8:
+        bilde1 = "8.png"
+    if rektangel1.score == 9:
+        bilde1 = "9.png"
+
+    score_display1 = vindu.blit(image_0,(140,70))
+    score_display2 = vindu.blit(image_0,(510,70))
+    
+    
     if rektangel2.score == 10:
         print("Spiller 1 vant")
     if rektangel1.score == 10:
