@@ -7,14 +7,14 @@ import random as rd
 VINDU_BREDDE = 720
 VINDU_HOYDE  = 480
 vindu = pg.display.set_mode([VINDU_BREDDE, VINDU_HOYDE])
-tilfeldig1 = rd.randint(-200,-100)
+
 
 
 l1 = []
-for i in range(-200,-100):
+for i in range(-400,-200):
     l1.append(i)
 
-for i in range(100,200):
+for i in range(200,400):
     l1.append(i)    
 
 tilfeldig_tall = rd.randint(0,200)
@@ -96,35 +96,14 @@ class Rectangle:
         if taster[K_DOWN]:
             self.ypos2 += self.fart
         
-rektangel1 = Rectangle(25,10,(255,255,255),vindu,0.3)
-rektangel2 = Rectangle(25,10,(255,255,255),vindu,0.3)
+rektangel1 = Rectangle(25,10,(255,255,255),vindu,0.6)
+rektangel2 = Rectangle(25,10,(255,255,255),vindu,0.6)
 hinder = Hinder(360, 240, 10, (255, 255, 255), vindu, l1[tilfeldig_tall]/1000, l1[tilfeldig_tall2]/1000)
 
 fortsett = True
 kjører = True
 
-if rektangel1.score == 0:
-    bilde1 = "0.png"
-if rektangel1.score == 1:
-    bilde1 = "1.png"
-if rektangel1.score == 2:
-    bilde1 = "2.png"
-if rektangel1.score == 3:
-    bilde1 = "3.png"
-if rektangel1.score == 4:
-    bilde1 = "4.png"
-if rektangel1.score == 5:
-    bilde1 = "5.png"
-if rektangel1.score == 6:
-    bilde1 = "6.png"
-if rektangel1.score == 7:
-    bilde1 = "7.png"
-if rektangel1.score == 8:
-    bilde1 = "8.png"
-if rektangel1.score == 9:
-    bilde1 = "9.png"
 
-image_0 = pg.image.load(bilde1)
 while fortsett:
 
     # Sjekker om brukeren har lukket vinduet
@@ -142,32 +121,53 @@ while fortsett:
     hinder.flytt(rektangel1,rektangel2)
     rektangel1.flytt(trykkede_taster)
     rektangel2.flytt(trykkede_taster)
-    
-
 
     if rektangel1.score == 0:
-        bilde1 = "0.png"
+        bilde1 = pg.image.load("0.png")
     if rektangel1.score == 1:
-        bilde1 = "1.png"
+        bilde1 = pg.image.load("1.png")
     if rektangel1.score == 2:
-        bilde1 = "2.png"
+        bilde1 = pg.image.load("2.png")
     if rektangel1.score == 3:
-        bilde1 = "3.png"
+        bilde1 = pg.image.load("3.png")
     if rektangel1.score == 4:
-        bilde1 = "4.png"
+        bilde1 = pg.image.load("4.png")
     if rektangel1.score == 5:
-        bilde1 = "5.png"
+        bilde1 = pg.image.load("5.png")
     if rektangel1.score == 6:
-        bilde1 = "6.png"
+        bilde1 = pg.image.load("6.png")
     if rektangel1.score == 7:
-        bilde1 = "7.png"
+        bilde1 = pg.image.load("7.png")
     if rektangel1.score == 8:
-        bilde1 = "8.png"
+        bilde1 = pg.image.load("8.png")
     if rektangel1.score == 9:
-        bilde1 = "9.png"
+        bilde1 = pg.image.load("9.png")
+    
+    if rektangel2.score == 0:
+        bilde2 = pg.image.load("0.png")
+    if rektangel2.score == 1:
+        bilde2 = pg.image.load("1.png")
+    if rektangel2.score == 2:
+        bilde2 = pg.image.load("2.png")
+    if rektangel2.score == 3:
+        bilde2 = pg.image.load("3.png")
+    if rektangel2.score == 4:
+        bilde2 = pg.image.load("4.png")
+    if rektangel2.score == 5:
+        bilde2 = pg.image.load("5.png")
+    if rektangel2.score == 6:
+        bilde2 = pg.image.load("6.png")
+    if rektangel2.score == 7:
+        bilde2 = pg.image.load("7.png")
+    if rektangel2.score == 8:
+        bilde2 = pg.image.load("8.png")
+    if rektangel2.score == 9:
+        bilde2 = pg.image.load("9.png")
 
-    score_display1 = vindu.blit(image_0,(140,70))
-    score_display2 = vindu.blit(image_0,(510,70))
+    
+
+    score_display1 = vindu.blit(bilde1,(140,70))
+    score_display2 = vindu.blit(bilde2,(510,70))
     
     
     if rektangel2.score == 10:
