@@ -1,26 +1,21 @@
 import pygame as pg
 from pygame.locals import (K_UP, K_DOWN)
 import random as rd
-
-
+import math as m
 
 VINDU_BREDDE = 720
 VINDU_HOYDE  = 480
 vindu = pg.display.set_mode([VINDU_BREDDE, VINDU_HOYDE])
 
-
-
 l1 = []
-for i in range(-400,-200):
+for i in range(-600,-400):
     l1.append(i)
 
-for i in range(200,400):
+for i in range(600,400):
     l1.append(i)    
 
 tilfeldig_tall = rd.randint(0,200)
 tilfeldig_tall2= rd.randint(0,200)
-
-
 
 class Ball:
   """Klasse for å representere en ball"""
@@ -48,9 +43,12 @@ class Hinder(Ball):
         if ((self.x + self.radius)>=VINDU_BREDDE):
             self.xFart = -self.xFart
             rectangle1.increase_score()
+            return "reset"
         if ((self.x - self.radius) <= 0):
             self.xFart = -self.xFart
             rectangle2.increase_score()
+            return "reset"
+
     
         # Sjekker om hinderet er utenfor øvre/nedre kant
         if ((self.y - self.radius) <= 0) or ((self.y + self.radius) >= self.vindusobjekt.get_height()):
@@ -59,6 +57,8 @@ class Hinder(Ball):
         if ((self.x - self.radius <= 21) and (rectangle1.ypos1 <= self.y <= rectangle1.ypos1 + 120)) or \
             ((self.x + self.radius >= 699) and (rectangle2.ypos2 <= self.y <= rectangle2.ypos2 + 120)):
              self.xFart = -self.xFart
+        
+        
 
         # Flytter hinderet
         self.x += self.xFart
@@ -96,13 +96,12 @@ class Rectangle:
         if taster[K_DOWN]:
             self.ypos2 += self.fart
         
-rektangel1 = Rectangle(25,10,(255,255,255),vindu,0.6)
-rektangel2 = Rectangle(25,10,(255,255,255),vindu,0.6)
+rektangel1 = Rectangle(25,10,(255,255,255),vindu,0.8)
+rektangel2 = Rectangle(25,10,(255,255,255),vindu,0.8)
 hinder = Hinder(360, 240, 10, (255, 255, 255), vindu, l1[tilfeldig_tall]/1000, l1[tilfeldig_tall2]/1000)
 
 fortsett = True
 kjører = True
-
 
 while fortsett:
 
@@ -122,54 +121,18 @@ while fortsett:
     rektangel1.flytt(trykkede_taster)
     rektangel2.flytt(trykkede_taster)
 
-    if rektangel1.score == 0:
-        bilde1 = pg.image.load("0.png")
-    if rektangel1.score == 1:
-        bilde1 = pg.image.load("1.png")
-    if rektangel1.score == 2:
-        bilde1 = pg.image.load("2.png")
-    if rektangel1.score == 3:
-        bilde1 = pg.image.load("3.png")
-    if rektangel1.score == 4:
-        bilde1 = pg.image.load("4.png")
-    if rektangel1.score == 5:
-        bilde1 = pg.image.load("5.png")
-    if rektangel1.score == 6:
-        bilde1 = pg.image.load("6.png")
-    if rektangel1.score == 7:
-        bilde1 = pg.image.load("7.png")
-    if rektangel1.score == 8:
-        bilde1 = pg.image.load("8.png")
-    if rektangel1.score == 9:
-        bilde1 = pg.image.load("9.png")
-    
-    if rektangel2.score == 0:
-        bilde2 = pg.image.load("0.png")
-    if rektangel2.score == 1:
-        bilde2 = pg.image.load("1.png")
-    if rektangel2.score == 2:
-        bilde2 = pg.image.load("2.png")
-    if rektangel2.score == 3:
-        bilde2 = pg.image.load("3.png")
-    if rektangel2.score == 4:
-        bilde2 = pg.image.load("4.png")
-    if rektangel2.score == 5:
-        bilde2 = pg.image.load("5.png")
-    if rektangel2.score == 6:
-        bilde2 = pg.image.load("6.png")
-    if rektangel2.score == 7:
-        bilde2 = pg.image.load("7.png")
-    if rektangel2.score == 8:
-        bilde2 = pg.image.load("8.png")
-    if rektangel2.score == 9:
-        bilde2 = pg.image.load("9.png")
-
-    
-
+    bilde1 = pg.image.load(str(rektangel1.score) + ".png")
+    bilde2 = pg.image.load(str(rektangel2.score) + ".png")
+   
     score_display1 = vindu.blit(bilde1,(140,70))
-    score_display2 = vindu.blit(bilde2,(510,70))
+    score_display2 = vindu.blit(bilde2,(520,70))
     
+    def resetBall():
+        if "reset":
+            hinder.y = 240
+            hinder.x = 360
     
+
     if rektangel2.score == 10:
         print("Spiller 1 vant")
     if rektangel1.score == 10:
