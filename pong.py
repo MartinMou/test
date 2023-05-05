@@ -19,26 +19,23 @@ for i in range(3500,4000):
 tilfeldig_tall = rd.randint(0,500)
 tilfeldig_tall2= rd.randint(0,500)
 
-class Ball:
-  """Klasse for å representere en ball"""
-  def __init__(self, x, y, radius, farge, vindusobjekt):
-    """Konstruktør"""
-    self.x = x
-    self.y = y
-    self.radius = radius
-    self.farge = farge
-    self.vindusobjekt = vindusobjekt
-  
-  def tegn(self):
-    """Metode for å tegne ballen"""
-    pg.draw.circle(self.vindusobjekt, self.farge, (self.x, self.y), self.radius)
-
-class Hinder(Ball):
+#lager Hinder klasse ok definerer hva som skal være inni
+class Hinder:
+    #definerer hva som er inni hinder objektet
     def __init__(self, x, y, radius, farge, vindusobjekt, xFart, yFart):
-        super().__init__(x, y, radius, farge, vindusobjekt)
+        self.x = x
+        self.y = y
+        self.radius = radius
+        self.farge = farge
+        self.vindusobjekt = vindusobjekt
         self.xFart = xFart
         self.yFart = yFart
     
+    #defingerer metode for å tegne ballen
+    def tegn(self):
+        """Metode for å tegne ballen"""
+        pg.draw.circle(self.vindusobjekt, self.farge, (self.x, self.y), self.radius)
+
     #resetter ballen tilbake til midten
     def reset_ball(self):
         self.x = VINDU_BREDDE // 2
@@ -68,8 +65,6 @@ class Hinder(Ball):
             rectangle2.increase_score()
             self.reset_ball()
 
-    
-
         # Flytter hinderet
         self.x += self.xFart
         self.y += self.yFart
@@ -93,7 +88,7 @@ class Rectangle:
         print(self, self.score)
 
     def tegn(self):
-         """Metode for å tegne rektangelet"""
+         #metode for å tegne rektanglene
          pg.draw.rect(vindu,(255,255,255),(1,self.ypos1,20,120))
          pg.draw.rect(vindu,(255,255,255),(699,self.ypos2,20,120))
 
@@ -115,8 +110,8 @@ rektangel2 = Rectangle(25,10,(255,255,255),vindu,5)
 hinder = Hinder(360, 240, 10, (255, 255, 255), vindu, l1[tilfeldig_tall]/1000, l1[tilfeldig_tall2]/1000)
 
 fortsett = True
-kjører = True
 
+#setter opp selve spill loopen
 while fortsett:
 
     # Sjekker om brukeren har lukket vinduet
@@ -128,19 +123,23 @@ while fortsett:
     #oppdaterer spillet
     trykkede_taster = pg.key.get_pressed()
     vindu.fill((110, 110, 110))
+    #tegner alle de forskjellige objektene
     rektangel1.tegn()
     rektangel2.tegn()
     hinder.tegn()
+    #Flytter alle de forskjellige objektene
     hinder.flytt(rektangel1,rektangel2)
     rektangel1.flytt(trykkede_taster)
     rektangel2.flytt(trykkede_taster)
-
+    #bruker score + "png" for å inkalle bildefiler fra mappen
     bilde1 = pg.image.load(str(rektangel1.score) + ".png")
     bilde2 = pg.image.load(str(rektangel2.score) + ".png")
    
+   #Tegner de forskjellige bildene inn i vinduet
     score_display1 = vindu.blit(bilde1,(140,70))
     score_display2 = vindu.blit(bilde2,(520,70))
 
+    #For spillet til å slutte når en av partene får to poeng
     if rektangel2.score == 10:
         print("Spiller 1 vant")
         pg.quit()
