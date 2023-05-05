@@ -43,11 +43,11 @@ class Hinder(Ball):
         if ((self.x + self.radius)>=VINDU_BREDDE):
             self.xFart = -self.xFart
             rectangle1.increase_score()
-            return "reset"
+            
         if ((self.x - self.radius) <= 0):
             self.xFart = -self.xFart
             rectangle2.increase_score()
-            return "reset"
+            
 
     
         # Sjekker om hinderet er utenfor øvre/nedre kant
@@ -127,10 +127,7 @@ while fortsett:
     score_display1 = vindu.blit(bilde1,(140,70))
     score_display2 = vindu.blit(bilde2,(520,70))
     
-    def resetBall():
-        if "reset":
-            hinder.y = 240
-            hinder.x = 360
+
     
 
     if rektangel2.score == 10:
